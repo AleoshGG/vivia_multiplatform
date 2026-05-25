@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vivia_multiplatform/features/auth/presentation/pages/signInPage.dart';
 import 'package:vivia_multiplatform/shared/theme/theme.dart';
 import 'package:vivia_multiplatform/shared/theme/util.dart';
+import 'package:vivia_multiplatform/shared/wrappers/securityWrapper.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      home: SignInPage(),
+      home: SecureWrapper(
+          child: SignInPage()),
     );
   }
 }

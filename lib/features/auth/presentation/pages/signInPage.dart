@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:vivia_multiplatform/features/auth/presentation/witgets/customTextField.dart';
 import 'package:vivia_multiplatform/features/auth/presentation/witgets/headerLogo.dart';
 
+import 'package:screen_protector/screen_protector.dart';
+
 import '../witgets/footerButtons.dart';
 
 class SignInPage extends StatelessWidget {
