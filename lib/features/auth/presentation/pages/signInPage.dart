@@ -1,0 +1,13 @@
+
+import 'package:flutter/cupertino.dart';
+
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Text("Hola mundo");
+
+  }
+}
