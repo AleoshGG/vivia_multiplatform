@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vivia_multiplatform/features/auth/presentation/pages/signInPage.dart';
+import 'package:vivia_multiplatform/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:vivia_multiplatform/shared/theme/theme.dart';
 import 'package:vivia_multiplatform/shared/theme/util.dart';
 import 'package:vivia_multiplatform/core/security/global_security_gate.dart';

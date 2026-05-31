@@ -1,12 +1,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vivia_multiplatform/features/auth/presentation/witgets/customTextField.dart';
-import 'package:vivia_multiplatform/features/auth/presentation/witgets/headerLogo.dart';
+import 'package:vivia_multiplatform/features/auth/presentation/witgets/custom_text_field.dart';
+import 'package:vivia_multiplatform/features/auth/presentation/witgets/header_logo.dart';
 
 import 'package:screen_protector/screen_protector.dart';
 
-import '../witgets/footerButtons.dart';
+import '../witgets/footer_buttons.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
