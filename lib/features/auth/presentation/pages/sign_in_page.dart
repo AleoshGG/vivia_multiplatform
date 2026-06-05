@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vivia_multiplatform/features/auth/presentation/witgets/custom_text_field.dart';
 import 'package:vivia_multiplatform/features/auth/presentation/witgets/header_logo.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/security/session_timeout/session_timeout_service.dart';
 import '../witgets/footer_buttons.dart';
 import 'home_page.dart';
 
@@ -30,6 +32,16 @@ class _SignInPageState extends State<SignInPage> {
     final password = _passwordController.text;
 
     if (email == _mockEmail && password == _mockPassword) {
+
+      SessionTimeoutService().start(
+        onTimeout: () {
+          NavigationService.navigatorKey.currentState?.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => const SignInPage()),
+            (route) => false,
+          );
+        },
+      );
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),

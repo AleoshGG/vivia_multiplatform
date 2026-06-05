@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import '../../../../core/security/session_timeout/session_timeout_service.dart';
+import 'sign_in_page.dart';
 
 // ─── Models inline ────────────────────────────────────────────────────────────
 
@@ -131,6 +133,17 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.logout_rounded),
+                    onPressed: () {
+                      SessionTimeoutService().stop();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => const SignInPage()),
+                        (route) => false,
+                      );
+                    },
+                  ),
                   const Icon(Icons.notifications_none_outlined),
                 ],
               ),
