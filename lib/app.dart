@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vivia_multiplatform/core/security/session_timeout/user_activity_detector.dart';
 import 'package:vivia_multiplatform/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:vivia_multiplatform/shared/theme/theme.dart';
 import 'package:vivia_multiplatform/shared/theme/util.dart';
@@ -15,16 +16,18 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Poppins", "Poppins");
     MaterialTheme theme = MaterialTheme(textTheme);
 
-    return MaterialApp(
-      title: 'Vivia Multiplatform',
-      navigatorKey: NavigationService.navigatorKey, // Llave maestra de navegación
-      debugShowCheckedModeBanner: false,
-      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      builder: (context, child) {
-        return GlobalSecurityGate(child: child!);
-      },
-      home: const ScreenshotGuard(
-        child: SignInPage(),
+    return UserActivityDetector(
+      child: MaterialApp(
+        title: 'Vivia Multiplatform',
+        navigatorKey: NavigationService.navigatorKey, // Llave maestra de navegación
+        debugShowCheckedModeBanner: false,
+        theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+        builder: (context, child) {
+          return GlobalSecurityGate(child: child!);
+        },
+        home: const ScreenshotGuard(
+          child: SignInPage(),
+        ),
       ),
     );
   }
