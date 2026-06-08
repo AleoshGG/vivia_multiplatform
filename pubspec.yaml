@@ -40,6 +40,7 @@ dependencies:
   screen_protector: ^1.5.1
   geolocator: ^14.0.2
   provider: ^6.1.5+1
+  flutter_secure_storage: ^10.3.1
 
 dev_dependencies:
   flutter_test:
