@@ -30,7 +30,7 @@ class _UpSensitiveDataPageState extends State<UpSensitiveDataPage> {
     // TODO: Aquí va la lógica de guardado con flutter_secure_storage
     debugPrint('Empresa: ${_companyController.text}');
     debugPrint('Nombre: ${_fullNameController.text}');
-    debugPrint('Correo: ${_emailController.text}');
+    debugPrint('Correoo: ${_emailController.text}');
     debugPrint('Contraseña: ${_passwordController.text}');
   }
 
