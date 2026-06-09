@@ -25,9 +25,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GlobalSecurityGate(child: child!);
       },
-      home: const ScreenshotGuard(
-        child: UpSensitiveDataPage(),
-      ),
+      home: UpSensitiveDataPage()
     );
   }
 }

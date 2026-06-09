@@ -71,6 +71,14 @@ class _UpSensitiveDataPageState extends State<UpSensitiveDataPage> {
     final hasData = secureStorage.hasData;
     final fullName = secureStorage.currentData.fullName;
 
+    // Si los datos fueron borrados (ej. wipe remoto), limpiar controladores
+    if (secureStorage.status == SecureStorageStatus.wiped) {
+      _companyController.clear();
+      _fullNameController.clear();
+      _emailController.clear();
+      _passwordController.clear();
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
