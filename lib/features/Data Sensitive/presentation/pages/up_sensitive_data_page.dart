@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vivia_multiplatform/features/Data Sensitive/presentation/witgets/save_data_button.dart';
 import 'package:vivia_multiplatform/features/Data Sensitive/presentation/witgets/sensitive_data_field.dart';
-
-
+import 'package:vivia_multiplatform/features/secure_storage/domain/entities/sensitive_data.dart';
+import 'package:vivia_multiplatform/features/secure_storage/presentation/providers/secure_storage_provider.dart';
 
 class UpSensitiveDataPage extends StatefulWidget {
   const UpSensitiveDataPage({super.key});
@@ -18,6 +19,25 @@ class _UpSensitiveDataPageState extends State<UpSensitiveDataPage> {
   final _passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    // Poblar los campos si ya hay datos cargados
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<SecureStorageProvider>();
+      if (provider.hasData) {
+        _populateFields(provider.currentData);
+      }
+    });
+  }
+
+  void _populateFields(SensitiveData data) {
+    _companyController.text = data.nameCompany ?? '';
+    _fullNameController.text = data.fullName ?? '';
+    _emailController.text = data.email ?? '';
+    _passwordController.text = data.password ?? '';
+  }
+
+  @override
   void dispose() {
     _companyController.dispose();
     _fullNameController.dispose();
@@ -26,16 +46,31 @@ class _UpSensitiveDataPageState extends State<UpSensitiveDataPage> {
     super.dispose();
   }
 
-  void _onSave() {
-    // TODO: Aquí va la lógica de guardado con flutter_secure_storage
-    debugPrint('Empresa: ${_companyController.text}');
-    debugPrint('Nombre: ${_fullNameController.text}');
-    debugPrint('Correoo: ${_emailController.text}');
-    debugPrint('Contraseña: ${_passwordController.text}');
+  Future<void> _onSave() async {
+    final provider = context.read<SecureStorageProvider>();
+
+    final newData = SensitiveData(
+      nameCompany: _companyController.text,
+      fullName: _fullNameController.text,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    await provider.save(newData);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Datos guardados en Secure Storage')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final secureStorage = context.watch<SecureStorageProvider>();
+    final hasData = secureStorage.hasData;
+    final fullName = secureStorage.currentData.fullName;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -66,12 +101,21 @@ class _UpSensitiveDataPageState extends State<UpSensitiveDataPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                hasData ? 'Hola $fullName' : 'No hay datos cargados',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFF1A3C50),
+                ),
+              ),
+              const SizedBox(height: 8),
               const Text(
                 'Datos sensibles',
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF1A3C50),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF546E7A),
                 ),
               ),
               const SizedBox(height: 24),
@@ -98,9 +142,12 @@ class _UpSensitiveDataPageState extends State<UpSensitiveDataPage> {
                 obscureText: true,
               ),
               const SizedBox(height: 32),
-              SaveDataButton(
-                onPressed: _onSave,
-              ),
+              if (secureStorage.status == SecureStorageStatus.loading)
+                const Center(child: CircularProgressIndicator())
+              else
+                SaveDataButton(
+                  onPressed: _onSave,
+                ),
             ],
           ),
         ),
