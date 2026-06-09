@@ -6,6 +6,8 @@ import 'package:vivia_multiplatform/core/security/global_security_gate.dart';
 import 'package:vivia_multiplatform/core/security/screenshot_guard.dart';
 import 'package:vivia_multiplatform/core/navigation/navigation_service.dart';
 
+import 'features/Data Sensitive/presentation/pages/up_sensitive_data_page.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         return GlobalSecurityGate(child: child!);
       },
       home: const ScreenshotGuard(
-        child: SignInPage(),
+        child: UpSensitiveDataPage(),
       ),
     );
   }

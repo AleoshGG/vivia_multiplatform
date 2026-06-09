@@ -8,6 +8,10 @@ import 'package:screen_protector/screen_protector.dart';
 
 import '../witgets/footer_buttons.dart';
 
+const _emailmock = "vivia@ejemplo.com";
+const _passmock = "1234";
+
+
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
